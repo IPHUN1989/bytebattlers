@@ -1,4 +1,11 @@
+# We use default of postgresql therefore recomended 5432
 SQL_PORT=${your sql port}
+
+# Whatever you wish to name the future database
 DATABASE=${your database name}
+
+# Wherever you wish to store the logs inside of the container
 LOG_FOLDER=${your log folder path}
+
+# Use a generator (no symbols) to get a 64 long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
 SECRET_KEY=${your secret key}
