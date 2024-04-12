@@ -39,6 +39,8 @@
 
 # Usage
 
+- Rename the teamplate_env file in the ${local_folder_of_cloned_project} to .env and fill out the requested variables
+
 ## Database
 
 **With a dummy database:**
@@ -47,46 +49,38 @@
 **With an empty database:**
 *Create an empty database and run the query in the backend/src/main/resources/db/migration/init-schema.sql to initialize a database with only the schema*
 
-## Frontend 
+## Local build
+
+### Frontend 
+
+- *Run the following command*
 
 ```bash
-# Go to your local folder
-cd {local_folder_of_cloned_project/frontend}
-
-# Install dependencies
-npm i
-
-# Run application
-npm run dev
-
-# Visit localhost:5173
+# Run it in the main folder.
+# Important to include the dot at the beggining of the command
+. frontend.sh
 
 ```
 
-## Backend
+### Backend
 
-- **Run the following command lines**
+- *Run the following command*
 
 ```bash
-# Navigate to the local folder
-cd {local_folder_of_cloned_project/backend}
+# Run it in the main folder in a new terminal
+# Important to include the dot at the beggining of the command
+. backend.sh
 
-# Build the project to a jar file
-mvn clean install
-
-# Run the applicaiton
-java -jar -DSQL_PORT=${your_sql_port} -DPASSWORD=${your_database_password} -DSECRET_KEY=${your_secret_key} -DDATABASE=${your_database_name} -DLOG_FOLDER=${your_log_folder_path} -DUSERNAME=${your_db_user_name} -DSQL_SERVER=${your_sql_server}
 ```
+- *After succesful build you can visit the website on localhost:4173*
 
 ##  Running with Docker
-
-- Rename the teamplate_env file in the ${local_folder_of_cloned_project} to .env and fill out the requested variables
 
 ```bash
 # Navigate to the local folder
 docker-compose up
 ```
-- Visit the dockerized website on localhost:3456
+- *Visit the dockerized website on localhost:3456*
 
 
 # See also
