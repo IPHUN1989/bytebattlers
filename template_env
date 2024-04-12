@@ -1,11 +1,20 @@
 # We use default of postgresql therefore recomended 5432
-SQL_PORT=${your sql port}
+SQL_PORT=${YOUR_SQL_PORT}
+
+# Default could be localhost
+SQL_SERVER=${YOUR_SQL_SERVER}
 
 # Whatever you wish to name the future database
-DATABASE=${your database name}
+APP_DATABASE=${YOUR_DESIRED_DB_NAME}
 
 # Wherever you wish to store the logs inside of the container
-LOG_FOLDER=${your log folder path}
+LOG_FOLDER=${PATH_TO_LOGS}
 
-# Use a generator (no symbols) to get a 64 long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
-SECRET_KEY=${your secret key}
+# Use a generator (no symbols) to get a 64 characters long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
+SECRET_KEY=${YOUR_SECRET_KEY}
+
+# Your DB user name
+APP_USER_NAME=${YOUR_DESIRED_USER_NAME}
+
+# Your DB password
+APP_PASSWORD=${YOUR_DESIRED_PASSWORD}
