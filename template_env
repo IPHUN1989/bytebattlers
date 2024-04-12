@@ -1,5 +1,8 @@
 # We use default of postgresql therefore recomended 5432
-SQL_PORT=${your sql port}
+SQL_PORT=${YOUR_SQL_PORT}
+
+# Default could be localhost
+SQL_SERVER=${YOUR_SQL_SERVER}
 
 # Whatever you wish to name the future database
 DATABASE=${your database name}
