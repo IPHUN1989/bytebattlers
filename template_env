@@ -13,5 +13,8 @@ LOG_FOLDER=${PATH_TO_LOGS}
 # Use a generator (no symbols) to get a 64 characters long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
 SECRET_KEY=${YOUR_SECRET_KEY}
 
-# Use a generator (no symbols) to get a 64 long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
-SECRET_KEY=${your secret key}
+# Your DB user name
+APP_USER_NAME=${YOUR_DESIRED_USER_NAME}
+
+# Your DB password
+APP_PASSWORD=${YOUR_DESIRED_PASSWORD}
