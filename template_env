@@ -5,7 +5,7 @@ SQL_PORT=${YOUR_SQL_PORT}
 SQL_SERVER=${YOUR_SQL_SERVER}
 
 # Whatever you wish to name the future database
-DATABASE=${your database name}
+APP_DATABASE=${YOUR_DESIRED_DB_NAME}
 
 # Wherever you wish to store the logs inside of the container
 LOG_FOLDER=${your log folder path}
