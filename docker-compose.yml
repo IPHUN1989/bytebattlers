@@ -30,6 +30,6 @@ services:
       context: ./db
     container_name: postgres
     environment:
-      POSTGRES_DB: ${DATABASE}
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${APP_DATABASE}
+      POSTGRES_USER: ${APP_USER_NAME}
+      POSTGRES_PASSWORD: ${APP_PASSWORD}
