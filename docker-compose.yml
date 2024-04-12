@@ -18,12 +18,12 @@ services:
       - postgres  
     environment:
       - SQL_SERVER=postgres
-      - DATABASE=${DATABASE}
+      - APP_DATABASE=${APP_DATABASE}
       - LOG_FOLDER=${LOG_FOLDER}
       - SECRET_KEY=${SECRET_KEY}
       - SQL_PORT=${SQL_PORT}
-      - USERNAME=postgres
-      - PASSWORD=postgres
+      - APP_USER_NAME=${APP_USER_NAME}
+      - APP_PASSWORD=${APP_PASSWORD}
   
   postgres:
     build:
