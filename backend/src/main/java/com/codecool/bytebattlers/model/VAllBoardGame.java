@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Immutable;
+import org.springframework.data.annotation.Immutable;
 
 import java.util.UUID;
 
