@@ -8,7 +8,10 @@ SQL_SERVER=${YOUR_SQL_SERVER}
 APP_DATABASE=${YOUR_DESIRED_DB_NAME}
 
 # Wherever you wish to store the logs inside of the container
-LOG_FOLDER=${your log folder path}
+LOG_FOLDER=${PATH_TO_LOGS}
+
+# Use a generator (no symbols) to get a 64 characters long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
+SECRET_KEY=${YOUR_SECRET_KEY}
 
 # Use a generator (no symbols) to get a 64 long string. It is recomended to use an SHA256 generator but any random string genrator will do it.  
 SECRET_KEY=${your secret key}
