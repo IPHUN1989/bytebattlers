@@ -6,8 +6,8 @@ target/
 .env
 
 # Logs
-.log
-/logs
+*.log
+/logs/
 
 ### STS ###
 .apt_generated
@@ -23,6 +23,10 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### Maven
+*.jpb
+*.mvn
 
 ### NetBeans ###
 /nbproject/private/
