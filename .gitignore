@@ -6,7 +6,8 @@ target/
 .env
 
 # Logs
-.log
+*.log
+/logs/
 
 ### STS ###
 .apt_generated
@@ -22,6 +23,10 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### Maven
+*.jpb
+*.mvn
 
 ### NetBeans ###
 /nbproject/private/
@@ -116,3 +121,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux
 node_modules
+logs/spring.log
