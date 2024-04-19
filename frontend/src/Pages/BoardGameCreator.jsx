@@ -22,8 +22,15 @@ const BoardGameCreator = () => {
         });
     
         if (res.ok) {
-          return await res.text();
-        } else {
+        alert("Thank you for sending in a new board game!")
+        navigate("/games");
+      }  
+      else if (res.status === 409) {
+        res.text().then(() => {
+          alert("Game already exists!")
+        });
+      }
+      else {
           throw new Error(`Error creating game: ${res.statusText}`);
         }
       } catch (error) {
