@@ -58,9 +58,13 @@ public class BoardGameController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<BoardGameDto> addNewBoardGame(@RequestBody BoardGameDto board) {
-        return new ResponseEntity<>(boardGameService.save(board), HttpStatus.CREATED);
-    }
+    public ResponseEntity<?> addNewBoardGame(@RequestBody BoardGameDto board) {
+        try {
+            BoardGameDto savedBoardGame = boardGameService.save(board);
+            return new ResponseEntity<>(savedBoardGame, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BoardGameDto> deleteBoardGameById(@PathVariable UUID id) {
