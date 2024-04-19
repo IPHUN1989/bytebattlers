@@ -73,12 +73,6 @@ const BoardGameForm = ({ onSave, onCancel }) => {
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
-    const isAnyFieldEmpty = entries.some(([, v]) => !v);
-
-    if (isAnyFieldEmpty) {
-      alert("Please fill in all the fields");
-      return;
-    }
 
     const selectedCategories = formData.getAll("categories")
       .map((categoryID) => {
