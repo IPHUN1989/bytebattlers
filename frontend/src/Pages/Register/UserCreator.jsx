@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
 import Register from "./Register";
 import { useNavigate } from "react-router-dom";
 
 const UserCreator = () => {
 
-    const [users, setUsers] = useState([]);
     const navigate = useNavigate();
 
 
     const createUser = async (user) => {
+        try {
         const res = await fetch("/api/users/register", {
             method: "POST",
             headers: {
@@ -17,48 +16,31 @@ const UserCreator = () => {
             body: JSON.stringify(user),
         });
 
-        return await res.text();
-    }
-
-
-    const userFetch = async () => {
-        try {
-            const response = await fetch("/api/users");
-            const data = await response.json();
-            setUsers(data);
+        if (res.ok) {
+            alert("Thank you for registering to our website!")
+            navigate("/");
+          }  
+          else if (res.status === 409) {
+            res.text().then(() => {
+              alert("User already exists!")
+            });
+          }
+          else {
+            throw new Error(`Error creating game: ${res.statusText}`);
+          }
         } catch (error) {
-            console.log(error);
+          console.error("Error creating game: ", error);
+          throw error;
         }
     }
 
-    useEffect(() => {
-        userFetch();
-    }, []);
 
-    const handleCreateUser = (user) => {
-        let userExists = false;
-        for (let i = 0; i < users.length; i++) {
-            if (user.name === users[i].name) {
-                userExists = true;
-                break;
-            }
-        }
-        if (userExists) {
-            alert("This user is already registered!");
-        } else {
-            createUser(user)
-                .then(() => {
-                    navigate("/");
-                })
-                .catch((error) => {
-                    console.error("Error creating user: ", error);
-                })
-        }
-    };
+
+   
     return (
         <Register
             onCancel={() => navigate("/")}
-            onSave={handleCreateUser}
+            onSave={createUser}
         />
     );
 }
