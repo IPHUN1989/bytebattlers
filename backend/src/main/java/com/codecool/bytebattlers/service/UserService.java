@@ -10,6 +10,7 @@ import com.codecool.bytebattlers.model.Role;
 import com.codecool.bytebattlers.repository.AppUserRepository;
 import com.codecool.bytebattlers.repository.BoardGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -82,8 +83,12 @@ public class UserService {
 
     public AppUserDto save(AppUserDto entity) {
        AppUser user = entityMapper.toEntity(entity);
-        userRepository.save(user);
-        return entityMapper.toDto(user);
+        try {
+            userRepository.save(user);
+            return entityMapper.toDto(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public AppUserDto findById(UUID publicID) {

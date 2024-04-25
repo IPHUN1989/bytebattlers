@@ -75,8 +75,14 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<AppUserDto> registerNewUser(@RequestBody AppUserDto user) {
-        return new ResponseEntity<>(userService.register(user), HttpStatus.CREATED);
+        try {
+            userService.save(user);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
     }
+
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> authenticateUser(@RequestBody AppUserDto user) {
         return new ResponseEntity<>(userService.authenticate(user), HttpStatus.OK);
