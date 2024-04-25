@@ -11,6 +11,7 @@ import com.codecool.bytebattlers.repository.BoardGameRepository;
 import com.codecool.bytebattlers.repository.CategoryRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -59,8 +60,13 @@ public class BoardGameService {
         boardGame.setUsersWhoFavorited(favoritedInEntity);
         boardGame.setCategories(categoriesInEntity);
         boardGame.setPublisher(foundPublisher);
-        boardGameRepository.save(boardGame);
-        return boardGameMapper.toDto(boardGame);
+
+        try {
+            BoardGame savedBoardGame = boardGameRepository.save(boardGame);
+            return boardGameMapper.toDto(savedBoardGame);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     public BoardGame findByPublicID(UUID publicID) {

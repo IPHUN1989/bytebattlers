@@ -73,12 +73,6 @@ const BoardGameForm = ({ onSave, onCancel }) => {
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
-    const isAnyFieldEmpty = entries.some(([, v]) => !v);
-
-    if (isAnyFieldEmpty) {
-      alert("Please fill in all the fields");
-      return;
-    }
 
     const selectedCategories = formData.getAll("categories")
       .map((categoryID) => {
@@ -121,6 +115,9 @@ const BoardGameForm = ({ onSave, onCancel }) => {
           <input
             name="gameName"
             id="gameName"
+            minLength={2}
+            maxLength={255}
+            required
           />
         </div>
         <div className="control">
@@ -129,6 +126,9 @@ const BoardGameForm = ({ onSave, onCancel }) => {
             type="number"
             name="minPlayer"
             id="minPlayer"
+            min={1}
+            max={20}
+            required
           />
         </div>
         <div className="control">
@@ -137,6 +137,9 @@ const BoardGameForm = ({ onSave, onCancel }) => {
             type="number"
             name="maxPlayer"
             id="maxPlayer"
+            min={1}
+            max={50}
+            required
           />
         </div>
         <div className="control">
@@ -145,6 +148,9 @@ const BoardGameForm = ({ onSave, onCancel }) => {
             type="number"
             name="playTimeInMinutes"
             id="playTimeInMinutes"
+            min={5}
+            max={1000}
+            required
           />
         </div>
 
@@ -154,6 +160,9 @@ const BoardGameForm = ({ onSave, onCancel }) => {
             type="number"
             name="recommendedAge"
             id="recommendedAge"
+            min={3}
+            max={99}
+            required
           />
         </div>
         <div className="control">
@@ -161,11 +170,14 @@ const BoardGameForm = ({ onSave, onCancel }) => {
           <input
             name="description"
             id="description"
+            minLength={10}
+            maxLength={255}
+            required
           />
         </div>
         <div className="control">
           <label htmlFor="publisherPublicID">Publisher: </label>
-          <select key="publisherPublicID" name="publisherPublicID" id="publisherPublicID">
+          <select key="publisherPublicID" name="publisherPublicID" id="publisherPublicID" required>
             {publishers.map((publisher) => {
               return <option value={publisher.publicID} key={publisher.publicID}>{publisher.publisherName}</option>
             })}
@@ -174,7 +186,7 @@ const BoardGameForm = ({ onSave, onCancel }) => {
 
         <div className="control">
           <label htmlFor="categories">Categories: </label>
-          <select key="categories" name="categories" id="categories" multiple>
+          <select key="categories" name="categories" id="categories" multiple required>
             {categories.map((category) => {
               return <option value={[category.publicID]} key={category.publicID}>{category.name}</option>
             })}
