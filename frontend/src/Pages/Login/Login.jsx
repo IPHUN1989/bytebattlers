@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import "./login.css";
 
 const Login = ({ onCancel }) => {
-    const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
+    const navigate = useNavigate();
 
     const extractUser = (token) => {
         const parts = token.split('.');
@@ -96,12 +98,15 @@ const Login = ({ onCancel }) => {
                             <label htmlFor=""></label>
                             <input 
                             placeholder="Password"
-                            type="password" 
+                type={showPassword ? "text" : "password"}
                             name="password" 
                             id="password" />
                         </div>
-                        <div className="forget">
-                            <label htmlFor=""><input type="checkbox" name="checkbox" id="checkbox" />Remember me</label>
+              <input
+                type="checkbox"
+                onChange={() => setShowPassword(!showPassword)}
+              />
+              <label>Show Password</label>
                         </div>
 
                         <button id="login" type="submit">
