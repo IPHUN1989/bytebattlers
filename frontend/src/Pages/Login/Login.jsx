@@ -91,7 +91,10 @@ const Login = ({ onCancel }) => {
                             placeholder="Email"
                             type="email" 
                             name="email" 
-                            id="email" />
+                id="email"
+                minLength={3}
+                required
+              />
                         </div>
                         <div className="input-box">
                             <ion-icon name="lock-closed-outline"></ion-icon>
@@ -100,7 +103,8 @@ const Login = ({ onCancel }) => {
                             placeholder="Password"
                 type={showPassword ? "text" : "password"}
                             name="password" 
-                            id="password" />
+                id="password"
+                required
                         </div>
               <input
                 type="checkbox"
