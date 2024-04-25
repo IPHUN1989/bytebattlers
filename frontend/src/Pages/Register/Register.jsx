@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 const Register = ({ onSave, onCancel }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showHint, setShowHint] = useState(true);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -45,11 +49,23 @@ const Register = ({ onSave, onCancel }) => {
               <ion-icon name="lock-closed-outline"></ion-icon>
               <label htmlFor="password"></label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 name="password"
                 id="password"
+                onClick={() => setShowHint(false)}
+                required
               />
+            </div>
+            <label hidden={showHint ? true : false}>
+              8 chars, min 1 capital and 1 number{" "}
+            </label>
+            <div>
+              <input
+                type="checkbox"
+                onChange={() => setShowPassword(!showPassword)}
+              />
+              <label>Show Password</label>
             </div>
 
             <button type="submit">Register</button>
