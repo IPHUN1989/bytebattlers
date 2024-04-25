@@ -1289,6 +1289,16 @@ ALTER TABLE ONLY public.app_user_favorite_board_game
     ADD CONSTRAINT fkpb3dfit9oyxqw9kae5dq2c3xl FOREIGN KEY (app_user_id) REFERENCES public.app_user(id);
 
 
+ALTER TABLE ONLY public.app_user
+    ADD CONSTRAINT us_user_user_name UNIQUE (user_name) INCLUDE (user_name);
+
+ALTER TABLE ONLY public.app_user
+    ADD CONSTRAINT uc_user_email UNIQUE (email) INCLUDE (email);
+
+ALTER TABLE ONLY public.board_game
+    ADD CONSTRAINT uc_board_game_name UNIQUE (game_name) INCLUDE (game_name);
+
+
 --
 -- TOC entry 3104 (class 0 OID 0)
 -- Dependencies: 7
