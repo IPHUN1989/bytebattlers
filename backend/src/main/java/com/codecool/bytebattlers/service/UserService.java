@@ -61,8 +61,13 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         user.setFavoriteBoardGames(favoritedBoardGames);
-        userRepository.save(user);
-        return entityMapper.toDto(user);
+        try {userRepository.save(user);
+            return entityMapper.toDto(user);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 
     public AuthenticationResponse authenticate(AppUserDto appUserDto){
