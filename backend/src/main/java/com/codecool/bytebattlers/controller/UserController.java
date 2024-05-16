@@ -76,7 +76,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<AppUserDto> registerNewUser(@RequestBody AppUserDto user) {
         try {
-            userService.save(user);
+            userService.register(user);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (RuntimeException e) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
