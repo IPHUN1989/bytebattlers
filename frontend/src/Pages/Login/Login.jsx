@@ -123,7 +123,7 @@ const Login = ({ onCancel }) => {
 
             <div className="register">
               <p>
-                Do not have an account? <a href="games/register">Register</a>
+                Do not have an account? <a href="/register">Register</a>
               </p>
             </div>
           </form>
