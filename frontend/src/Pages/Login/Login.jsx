@@ -117,8 +117,8 @@ const Login = ({ onCancel }) => {
             </button>
             <br></br>
             <br></br>
-            <button id="login" type="button" onClick={onCancel}>
-              Cancel
+            <button id="cancel" type="button" >
+            <a href="/"> Cancel </a>
             </button>
 
             <div className="register">
