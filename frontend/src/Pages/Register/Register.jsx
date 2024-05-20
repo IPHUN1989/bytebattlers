@@ -3,6 +3,7 @@ import { useState } from "react";
 const Register = ({ onSave, onCancel }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showHint, setShowHint] = useState(true);
+  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -24,7 +25,6 @@ const Register = ({ onSave, onCancel }) => {
     user.reviews = [];
     user.favoriteBoardGamePublicIDS = [];
     user.ratings = [];
-    console.log(user);
     onSave(user);
   };
   return (
@@ -87,8 +87,8 @@ const Register = ({ onSave, onCancel }) => {
               <label>Show Password</label>
             </div>
 
-            <button type="submit">Register</button>
-            <button type="button" onClick={onCancel}>
+            <button id="register" type="submit">Register</button>
+            <button id="cancel" type="button" onClick={onCancel}>
               Cancel
             </button>
           </form>
