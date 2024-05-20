@@ -25,7 +25,6 @@ const Register = ({ onSave, onCancel }) => {
     user.reviews = [];
     user.favoriteBoardGamePublicIDS = [];
     user.ratings = [];
-    console.log(user);
     onSave(user);
   };
   return (
