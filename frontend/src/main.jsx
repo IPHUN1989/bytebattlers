@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <UserFavoritesSite />,
       },
       {
-        path: "/games/register",
+        path: "/register",
         element: <UserCreator />,
       }
     ],
