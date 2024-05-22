@@ -12,7 +12,10 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
 
 
+# Information about the migration of the project
 
+**The original project has been cloned with permission to here and its development continues here from 22-05-2024.**
+**You can find the original repo here: https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn**
 
 # ByteBattlers
 **A full stack CRUD web application with the following technologies:**
@@ -29,7 +32,21 @@
 - *Add a board game to their virtual collection*
 - *Rate/review any chosen board game*
 
-# Prerequisites
+# Usage
+
+- Rename the teamplate_env file in the ${local_folder_of_cloned_project} to .env and fill out the requested variables
+
+##  Running it with Docker
+
+```bash
+# Navigate to the local folder
+docker-compose up
+```
+- *Visit the dockerized website on localhost:3456*
+
+## Local build
+
+### Prerequisites
 - <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Apache_Maven_logo.svg" alt="drawing" width="30" align="center"/> *Maven 3.6.3*
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/frameworks/nodejs.svg" alt="drawing" width="30" align="center"/> *Node 19.8.1*
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/programming%20languages/java.svg" alt="drawing" width="30" align="center"/> *Java 17.0.7*
@@ -37,19 +54,13 @@
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/databases/postgresql.svg" alt="drawing" width="30" align="center"/> *PostgreSQL 12.16*
 - <img src="https://raw.githubusercontent.com/yurijserrano/Github-Profile-Readme-Logos/042e36c55d4d757621dedc4f03108213fbb57ec4/others/git.svg" alt="drawing" width="30" align="center"/> *Git 2.30.2*
 
-# Usage
+### Database
 
-- Rename the teamplate_env file in the ${local_folder_of_cloned_project} to .env and fill out the requested variables
-
-## Database
-
-**With a dummy database:**
+**With a filled up database:**
 *Create an empty database and run the query in the db/import.sql to initialize a dummy database with already existing data*
 
 **With an empty database:**
 *Create an empty database and run the query in the backend/src/main/resources/db/migration/init-schema.sql to initialize a database with only the schema*
-
-## Local build
 
 ### Frontend 
 
@@ -74,13 +85,6 @@
 ```
 - *After succesful build you can visit the website on localhost:4173*
 
-##  Running with Docker
-
-```bash
-# Navigate to the local folder
-docker-compose up
-```
-- *Visit the dockerized website on localhost:3456*
 
 
 # See also
