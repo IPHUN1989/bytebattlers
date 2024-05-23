@@ -88,5 +88,5 @@ docker-compose up
 
 
 # See also
-[Checkout our WIKI page](https://github.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn/wiki)
+[Checkout the documentation of our project](https://iphun1989.github.io/bytebattlers/)
 
