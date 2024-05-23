@@ -8,11 +8,50 @@
         <version>3.2.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.codecool</groupId>
-    <artifactId>bytebattlers</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>Bytebattlers</artifactId>
+    <version>1.0.0</version>
     <name>Bytebattlers</name>
     <description>Bytebattlers website</description>
+    <url>https://github.com/IPHUN1989/bytebattlers/</url>
+    <scm>
+        <connection>scm:git:https://github.com/IPHUN1989/bytebattlers.git</connection>
+        <developerConnection>scm:git:https://github.com/IPHUN1989/bytebattlers.git</developerConnection>
+        <url>scm:git:https://github.com/IPHUN1989/bytebattlers.git</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/IPHUN1989/bytebattlers/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <id>IPHUN1989</id>
+            <name>Péter Tamás Illés</name>
+        </developer>
+        <developer>
+            <id>szplkflrn</id>
+            <name>Flórián Széplaki</name>
+        </developer>
+        <developer>
+            <id>marktamasko</id>
+            <name>Márk Tamaskó</name>
+        </developer>
+        <developer>
+            <id>molnarlevi19</id>
+            <name>Levente Molnár</name>
+        </developer>
+    </developers>
+
     <properties>
         <java.version>17</java.version>
     </properties>
