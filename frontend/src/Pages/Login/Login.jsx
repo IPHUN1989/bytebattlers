@@ -117,7 +117,7 @@ const Login = ({ onCancel }) => {
             </button>
             <br></br>
             <br></br>
-            <button id="cancel" type="button" >
+            <button id="cancel" type="button" style={{background:"transparent"}} >
             <a href="/"> Cancel </a>
             </button>
 
