@@ -19,7 +19,7 @@ build_backend_with_maven () {
 
 run_backend () {
   echo "Starting backend"
-  java -jar ./backend/target/bytebattlers-0.0.1-SNAPSHOT.jar
+  java -jar ./backend/target/*.jar
 }
 
 load_dotenv
