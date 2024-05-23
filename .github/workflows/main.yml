@@ -33,6 +33,6 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.TOKEN }}
         BRANCH: development # The branch the action should deploy to.
-        FOLDER: target/site # The folder the action should deploy.
+        FOLDER: backend/target/site # The folder the action should deploy.
         CLEAN: true # Automatically remove deleted files from the deploy branch
         TARGET_FOLDER: docs/backend
