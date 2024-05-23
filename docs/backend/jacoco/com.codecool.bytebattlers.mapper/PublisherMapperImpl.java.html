@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PublisherMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.mapper</a> &gt; <span class="el_source">PublisherMapperImpl.java</span></div><h1>PublisherMapperImpl.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.mapper;
+
+import com.codecool.bytebattlers.controller.dto.PublisherDto;
+import com.codecool.bytebattlers.model.BoardGame;
+import com.codecool.bytebattlers.model.Publisher;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.UUID;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2024-05-23T13:32:25+0000&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.11 (Azul Systems, Inc.)&quot;
+)
+@Component
+<span class="fc" id="L18">public class PublisherMapperImpl implements PublisherMapper {</span>
+
+    @Override
+    public Publisher toEntity(PublisherDto publisherDto) {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if ( publisherDto == null ) {</span>
+<span class="nc" id="L23">            return null;</span>
+        }
+
+<span class="nc" id="L26">        Publisher publisher = new Publisher();</span>
+
+<span class="nc" id="L28">        publisher.setPublicID( publisherDto.publicID() );</span>
+<span class="nc" id="L29">        publisher.setPublisherName( publisherDto.publisherName() );</span>
+<span class="nc" id="L30">        publisher.setBoardGames( boardGameDto1SetToBoardGameSet( publisherDto.boardGames() ) );</span>
+
+<span class="nc" id="L32">        linkBoardGames( publisher );</span>
+
+<span class="nc" id="L34">        return publisher;</span>
+    }
+
+    @Override
+    public PublisherDto toDto(Publisher publisher) {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        if ( publisher == null ) {</span>
+<span class="nc" id="L40">            return null;</span>
+        }
+
+<span class="nc" id="L43">        UUID publicID = null;</span>
+<span class="nc" id="L44">        String publisherName = null;</span>
+<span class="nc" id="L45">        Set&lt;PublisherDto.BoardGameDto1&gt; boardGames = null;</span>
+
+<span class="nc" id="L47">        publicID = publisher.getPublicID();</span>
+<span class="nc" id="L48">        publisherName = publisher.getPublisherName();</span>
+<span class="nc" id="L49">        boardGames = boardGameSetToBoardGameDto1Set( publisher.getBoardGames() );</span>
+
+<span class="nc" id="L51">        PublisherDto publisherDto = new PublisherDto( publicID, publisherName, boardGames );</span>
+
+<span class="nc" id="L53">        return publisherDto;</span>
+    }
+
+    @Override
+    public Publisher partialUpdate(PublisherDto publisherDto, Publisher publisher) {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if ( publisherDto == null ) {</span>
+<span class="nc" id="L59">            return publisher;</span>
+        }
+
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if ( publisherDto.publicID() != null ) {</span>
+<span class="nc" id="L63">            publisher.setPublicID( publisherDto.publicID() );</span>
+        }
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        if ( publisherDto.publisherName() != null ) {</span>
+<span class="nc" id="L66">            publisher.setPublisherName( publisherDto.publisherName() );</span>
+        }
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if ( publisher.getBoardGames() != null ) {</span>
+<span class="nc" id="L69">            Set&lt;BoardGame&gt; set = boardGameDto1SetToBoardGameSet( publisherDto.boardGames() );</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">            if ( set != null ) {</span>
+<span class="nc" id="L71">                publisher.getBoardGames().clear();</span>
+<span class="nc" id="L72">                publisher.getBoardGames().addAll( set );</span>
+            }
+<span class="nc" id="L74">        }</span>
+        else {
+<span class="nc" id="L76">            Set&lt;BoardGame&gt; set = boardGameDto1SetToBoardGameSet( publisherDto.boardGames() );</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">            if ( set != null ) {</span>
+<span class="nc" id="L78">                publisher.setBoardGames( set );</span>
+            }
+        }
+
+<span class="nc" id="L82">        linkBoardGames( publisher );</span>
+
+<span class="nc" id="L84">        return publisher;</span>
+    }
+
+    protected BoardGame boardGameDto1ToBoardGame(PublisherDto.BoardGameDto1 boardGameDto1) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if ( boardGameDto1 == null ) {</span>
+<span class="nc" id="L89">            return null;</span>
+        }
+
+<span class="nc" id="L92">        BoardGame boardGame = new BoardGame();</span>
+
+<span class="nc" id="L94">        boardGame.setPublicID( boardGameDto1.publicID() );</span>
+<span class="nc" id="L95">        boardGame.setGameName( boardGameDto1.gameName() );</span>
+<span class="nc" id="L96">        boardGame.setMinPlayer( boardGameDto1.minPlayer() );</span>
+<span class="nc" id="L97">        boardGame.setMaxPlayer( boardGameDto1.maxPlayer() );</span>
+<span class="nc" id="L98">        boardGame.setPlayTimeInMinutes( boardGameDto1.playTimeInMinutes() );</span>
+<span class="nc" id="L99">        boardGame.setRecommendedAge( boardGameDto1.recommendedAge() );</span>
+<span class="nc" id="L100">        boardGame.setDescription( boardGameDto1.description() );</span>
+
+<span class="nc" id="L102">        return boardGame;</span>
+    }
+
+    protected Set&lt;BoardGame&gt; boardGameDto1SetToBoardGameSet(Set&lt;PublisherDto.BoardGameDto1&gt; set) {
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if ( set == null ) {</span>
+<span class="nc" id="L107">            return null;</span>
+        }
+
+<span class="nc" id="L110">        Set&lt;BoardGame&gt; set1 = new LinkedHashSet&lt;BoardGame&gt;( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        for ( PublisherDto.BoardGameDto1 boardGameDto1 : set ) {</span>
+<span class="nc" id="L112">            set1.add( boardGameDto1ToBoardGame( boardGameDto1 ) );</span>
+<span class="nc" id="L113">        }</span>
+
+<span class="nc" id="L115">        return set1;</span>
+    }
+
+    protected PublisherDto.BoardGameDto1 boardGameToBoardGameDto1(BoardGame boardGame) {
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        if ( boardGame == null ) {</span>
+<span class="nc" id="L120">            return null;</span>
+        }
+
+<span class="nc" id="L123">        UUID publicID = null;</span>
+<span class="nc" id="L124">        String gameName = null;</span>
+<span class="nc" id="L125">        int minPlayer = 0;</span>
+<span class="nc" id="L126">        int maxPlayer = 0;</span>
+<span class="nc" id="L127">        int playTimeInMinutes = 0;</span>
+<span class="nc" id="L128">        int recommendedAge = 0;</span>
+<span class="nc" id="L129">        String description = null;</span>
+
+<span class="nc" id="L131">        publicID = boardGame.getPublicID();</span>
+<span class="nc" id="L132">        gameName = boardGame.getGameName();</span>
+<span class="nc" id="L133">        minPlayer = boardGame.getMinPlayer();</span>
+<span class="nc" id="L134">        maxPlayer = boardGame.getMaxPlayer();</span>
+<span class="nc" id="L135">        playTimeInMinutes = boardGame.getPlayTimeInMinutes();</span>
+<span class="nc" id="L136">        recommendedAge = boardGame.getRecommendedAge();</span>
+<span class="nc" id="L137">        description = boardGame.getDescription();</span>
+
+<span class="nc" id="L139">        double rating = 0.0d;</span>
+
+<span class="nc" id="L141">        PublisherDto.BoardGameDto1 boardGameDto1 = new PublisherDto.BoardGameDto1( publicID, gameName, minPlayer, maxPlayer, playTimeInMinutes, recommendedAge, description, rating );</span>
+
+<span class="nc" id="L143">        return boardGameDto1;</span>
+    }
+
+    protected Set&lt;PublisherDto.BoardGameDto1&gt; boardGameSetToBoardGameDto1Set(Set&lt;BoardGame&gt; set) {
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if ( set == null ) {</span>
+<span class="nc" id="L148">            return null;</span>
+        }
+
+<span class="nc" id="L151">        Set&lt;PublisherDto.BoardGameDto1&gt; set1 = new LinkedHashSet&lt;PublisherDto.BoardGameDto1&gt;( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        for ( BoardGame boardGame : set ) {</span>
+<span class="nc" id="L153">            set1.add( boardGameToBoardGameDto1( boardGame ) );</span>
+<span class="nc" id="L154">        }</span>
+
+<span class="nc" id="L156">        return set1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.service</a> &gt; <span class="el_source">CategoryService.java</span></div><h1>CategoryService.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.service;
+
+import com.codecool.bytebattlers.controller.dto.CategoryDto;
+import com.codecool.bytebattlers.mapper.CategoryMapper;
+import com.codecool.bytebattlers.model.Category;
+import com.codecool.bytebattlers.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import java.util.List;
+import java.util.UUID;
+
+@Service
+public class CategoryService {
+    private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
+
+    @Autowired
+<span class="fc" id="L20">    public CategoryService(CategoryRepository categoryRepository, CategoryMapper categoryMapper) {</span>
+<span class="fc" id="L21">        this.categoryRepository = categoryRepository;</span>
+<span class="fc" id="L22">        this.categoryMapper = categoryMapper;</span>
+<span class="fc" id="L23">    }</span>
+
+    public List&lt;CategoryDto&gt; findAll() {
+<span class="nc" id="L26">        return categoryRepository.findAll().stream()</span>
+<span class="nc" id="L27">                .map(categoryMapper::toDto).toList();</span>
+    }
+
+    public CategoryDto save(CategoryDto entity) {
+<span class="nc" id="L31">        Category createdCategory = categoryMapper.toEntity(entity);</span>
+<span class="nc" id="L32">        categoryRepository.save(createdCategory);</span>
+<span class="nc" id="L33">        return categoryMapper.toDto(createdCategory);</span>
+    }
+
+    public CategoryDto findById(UUID publicID) {
+<span class="nc" id="L37">        return categoryMapper</span>
+<span class="nc" id="L38">                .toDto(categoryRepository.findCategoryByPublicID(publicID));</span>
+    }
+
+    public void deleteById(UUID publicId) {
+<span class="nc" id="L42">        categoryRepository.deleteByPublicID(publicId);</span>
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

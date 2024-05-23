@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.mapper</a> &gt; <span class="el_source">CategoryMapperImpl.java</span></div><h1>CategoryMapperImpl.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.mapper;
+
+import com.codecool.bytebattlers.controller.dto.CategoryDto;
+import com.codecool.bytebattlers.model.BoardGame;
+import com.codecool.bytebattlers.model.Category;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.UUID;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2024-05-23T13:32:25+0000&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.11 (Azul Systems, Inc.)&quot;
+)
+@Component
+<span class="fc" id="L18">public class CategoryMapperImpl implements CategoryMapper {</span>
+
+    @Override
+    public Category toEntity(CategoryDto categoryDto) {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if ( categoryDto == null ) {</span>
+<span class="nc" id="L23">            return null;</span>
+        }
+
+<span class="nc" id="L26">        Category category = new Category();</span>
+
+<span class="nc" id="L28">        category.setPublicID( categoryDto.publicID() );</span>
+<span class="nc" id="L29">        category.setName( categoryDto.name() );</span>
+<span class="nc" id="L30">        category.setDescription( categoryDto.description() );</span>
+<span class="nc" id="L31">        category.setBoardGames( boardGameDto1SetToBoardGameSet( categoryDto.boardGames() ) );</span>
+
+<span class="nc" id="L33">        return category;</span>
+    }
+
+    @Override
+    public CategoryDto toDto(Category category) {
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if ( category == null ) {</span>
+<span class="nc" id="L39">            return null;</span>
+        }
+
+<span class="nc" id="L42">        UUID publicID = null;</span>
+<span class="nc" id="L43">        String name = null;</span>
+<span class="nc" id="L44">        String description = null;</span>
+<span class="nc" id="L45">        Set&lt;CategoryDto.BoardGameDto1&gt; boardGames = null;</span>
+
+<span class="nc" id="L47">        publicID = category.getPublicID();</span>
+<span class="nc" id="L48">        name = category.getName();</span>
+<span class="nc" id="L49">        description = category.getDescription();</span>
+<span class="nc" id="L50">        boardGames = boardGameSetToBoardGameDto1Set( category.getBoardGames() );</span>
+
+<span class="nc" id="L52">        CategoryDto categoryDto = new CategoryDto( publicID, name, description, boardGames );</span>
+
+<span class="nc" id="L54">        return categoryDto;</span>
+    }
+
+    @Override
+    public Category partialUpdate(CategoryDto categoryDto, Category category) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if ( categoryDto == null ) {</span>
+<span class="nc" id="L60">            return category;</span>
+        }
+
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if ( categoryDto.publicID() != null ) {</span>
+<span class="nc" id="L64">            category.setPublicID( categoryDto.publicID() );</span>
+        }
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if ( categoryDto.name() != null ) {</span>
+<span class="nc" id="L67">            category.setName( categoryDto.name() );</span>
+        }
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if ( categoryDto.description() != null ) {</span>
+<span class="nc" id="L70">            category.setDescription( categoryDto.description() );</span>
+        }
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        if ( category.getBoardGames() != null ) {</span>
+<span class="nc" id="L73">            Set&lt;BoardGame&gt; set = boardGameDto1SetToBoardGameSet( categoryDto.boardGames() );</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            if ( set != null ) {</span>
+<span class="nc" id="L75">                category.getBoardGames().clear();</span>
+<span class="nc" id="L76">                category.getBoardGames().addAll( set );</span>
+            }
+<span class="nc" id="L78">        }</span>
+        else {
+<span class="nc" id="L80">            Set&lt;BoardGame&gt; set = boardGameDto1SetToBoardGameSet( categoryDto.boardGames() );</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if ( set != null ) {</span>
+<span class="nc" id="L82">                category.setBoardGames( set );</span>
+            }
+        }
+
+<span class="nc" id="L86">        return category;</span>
+    }
+
+    protected BoardGame boardGameDto1ToBoardGame(CategoryDto.BoardGameDto1 boardGameDto1) {
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if ( boardGameDto1 == null ) {</span>
+<span class="nc" id="L91">            return null;</span>
+        }
+
+<span class="nc" id="L94">        BoardGame boardGame = new BoardGame();</span>
+
+<span class="nc" id="L96">        boardGame.setPublicID( boardGameDto1.publicID() );</span>
+<span class="nc" id="L97">        boardGame.setGameName( boardGameDto1.gameName() );</span>
+<span class="nc" id="L98">        boardGame.setMinPlayer( boardGameDto1.minPlayer() );</span>
+<span class="nc" id="L99">        boardGame.setMaxPlayer( boardGameDto1.maxPlayer() );</span>
+<span class="nc" id="L100">        boardGame.setPlayTimeInMinutes( boardGameDto1.playTimeInMinutes() );</span>
+<span class="nc" id="L101">        boardGame.setRecommendedAge( boardGameDto1.recommendedAge() );</span>
+<span class="nc" id="L102">        boardGame.setDescription( boardGameDto1.description() );</span>
+
+<span class="nc" id="L104">        return boardGame;</span>
+    }
+
+    protected Set&lt;BoardGame&gt; boardGameDto1SetToBoardGameSet(Set&lt;CategoryDto.BoardGameDto1&gt; set) {
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        if ( set == null ) {</span>
+<span class="nc" id="L109">            return null;</span>
+        }
+
+<span class="nc" id="L112">        Set&lt;BoardGame&gt; set1 = new LinkedHashSet&lt;BoardGame&gt;( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        for ( CategoryDto.BoardGameDto1 boardGameDto1 : set ) {</span>
+<span class="nc" id="L114">            set1.add( boardGameDto1ToBoardGame( boardGameDto1 ) );</span>
+<span class="nc" id="L115">        }</span>
+
+<span class="nc" id="L117">        return set1;</span>
+    }
+
+    protected CategoryDto.BoardGameDto1 boardGameToBoardGameDto1(BoardGame boardGame) {
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if ( boardGame == null ) {</span>
+<span class="nc" id="L122">            return null;</span>
+        }
+
+<span class="nc" id="L125">        UUID publicID = null;</span>
+<span class="nc" id="L126">        String gameName = null;</span>
+<span class="nc" id="L127">        int minPlayer = 0;</span>
+<span class="nc" id="L128">        int maxPlayer = 0;</span>
+<span class="nc" id="L129">        int playTimeInMinutes = 0;</span>
+<span class="nc" id="L130">        int recommendedAge = 0;</span>
+<span class="nc" id="L131">        String description = null;</span>
+
+<span class="nc" id="L133">        publicID = boardGame.getPublicID();</span>
+<span class="nc" id="L134">        gameName = boardGame.getGameName();</span>
+<span class="nc" id="L135">        minPlayer = boardGame.getMinPlayer();</span>
+<span class="nc" id="L136">        maxPlayer = boardGame.getMaxPlayer();</span>
+<span class="nc" id="L137">        playTimeInMinutes = boardGame.getPlayTimeInMinutes();</span>
+<span class="nc" id="L138">        recommendedAge = boardGame.getRecommendedAge();</span>
+<span class="nc" id="L139">        description = boardGame.getDescription();</span>
+
+<span class="nc" id="L141">        double rating = 0.0d;</span>
+
+<span class="nc" id="L143">        CategoryDto.BoardGameDto1 boardGameDto1 = new CategoryDto.BoardGameDto1( publicID, gameName, minPlayer, maxPlayer, playTimeInMinutes, recommendedAge, description, rating );</span>
+
+<span class="nc" id="L145">        return boardGameDto1;</span>
+    }
+
+    protected Set&lt;CategoryDto.BoardGameDto1&gt; boardGameSetToBoardGameDto1Set(Set&lt;BoardGame&gt; set) {
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        if ( set == null ) {</span>
+<span class="nc" id="L150">            return null;</span>
+        }
+
+<span class="nc" id="L153">        Set&lt;CategoryDto.BoardGameDto1&gt; set1 = new LinkedHashSet&lt;CategoryDto.BoardGameDto1&gt;( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        for ( BoardGame boardGame : set ) {</span>
+<span class="nc" id="L155">            set1.add( boardGameToBoardGameDto1( boardGame ) );</span>
+<span class="nc" id="L156">        }</span>
+
+<span class="nc" id="L158">        return set1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

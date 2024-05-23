@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AppUserMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.mapper</a> &gt; <span class="el_source">AppUserMapperImpl.java</span></div><h1>AppUserMapperImpl.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.mapper;
+
+import com.codecool.bytebattlers.controller.dto.AppUserDto;
+import com.codecool.bytebattlers.model.AppUser;
+import com.codecool.bytebattlers.model.Review;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.UUID;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2024-05-23T13:32:25+0000&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.11 (Azul Systems, Inc.)&quot;
+)
+@Component
+<span class="fc" id="L18">public class AppUserMapperImpl implements AppUserMapper {</span>
+
+    @Override
+    public AppUser toEntity(AppUserDto appUserDto) {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        if ( appUserDto == null ) {</span>
+<span class="nc" id="L23">            return null;</span>
+        }
+
+<span class="nc" id="L26">        AppUser appUser = new AppUser();</span>
+
+<span class="nc" id="L28">        appUser.setPublicID( appUserDto.publicID() );</span>
+<span class="nc" id="L29">        appUser.setName( appUserDto.name() );</span>
+<span class="nc" id="L30">        appUser.setPassword( appUserDto.password() );</span>
+<span class="nc" id="L31">        appUser.setEmail( appUserDto.email() );</span>
+<span class="nc" id="L32">        appUser.setReviews( reviewDto1SetToReviewSet( appUserDto.reviews() ) );</span>
+
+<span class="nc" id="L34">        linkReviews( appUser );</span>
+
+<span class="nc" id="L36">        return appUser;</span>
+    }
+
+    @Override
+    public AppUserDto toDto(AppUser appUser) {
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if ( appUser == null ) {</span>
+<span class="nc" id="L42">            return null;</span>
+        }
+
+<span class="nc" id="L45">        UUID publicID = null;</span>
+<span class="nc" id="L46">        String name = null;</span>
+<span class="nc" id="L47">        String password = null;</span>
+<span class="nc" id="L48">        String email = null;</span>
+<span class="nc" id="L49">        Set&lt;AppUserDto.ReviewDto1&gt; reviews = null;</span>
+
+<span class="nc" id="L51">        publicID = appUser.getPublicID();</span>
+<span class="nc" id="L52">        name = appUser.getName();</span>
+<span class="nc" id="L53">        password = appUser.getPassword();</span>
+<span class="nc" id="L54">        email = appUser.getEmail();</span>
+<span class="nc" id="L55">        reviews = reviewSetToReviewDto1Set( appUser.getReviews() );</span>
+
+<span class="nc" id="L57">        Set&lt;UUID&gt; favoriteBoardGamePublicIDS = favoriteBoardGameToFavoriteBoardGamePublicIDS(appUser.getFavoriteBoardGames());</span>
+
+<span class="nc" id="L59">        AppUserDto appUserDto = new AppUserDto( publicID, name, password, email, reviews, favoriteBoardGamePublicIDS );</span>
+
+<span class="nc" id="L61">        return appUserDto;</span>
+    }
+
+    @Override
+    public AppUser partialUpdate(AppUserDto appUserDto, AppUser appUser) {
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        if ( appUserDto == null ) {</span>
+<span class="nc" id="L67">            return appUser;</span>
+        }
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if ( appUserDto.publicID() != null ) {</span>
+<span class="nc" id="L71">            appUser.setPublicID( appUserDto.publicID() );</span>
+        }
+<span class="nc bnc" id="L73" title="All 2 branches missed.">        if ( appUserDto.name() != null ) {</span>
+<span class="nc" id="L74">            appUser.setName( appUserDto.name() );</span>
+        }
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if ( appUserDto.password() != null ) {</span>
+<span class="nc" id="L77">            appUser.setPassword( appUserDto.password() );</span>
+        }
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        if ( appUserDto.email() != null ) {</span>
+<span class="nc" id="L80">            appUser.setEmail( appUserDto.email() );</span>
+        }
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if ( appUser.getReviews() != null ) {</span>
+<span class="nc" id="L83">            Set&lt;Review&gt; set = reviewDto1SetToReviewSet( appUserDto.reviews() );</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            if ( set != null ) {</span>
+<span class="nc" id="L85">                appUser.getReviews().clear();</span>
+<span class="nc" id="L86">                appUser.getReviews().addAll( set );</span>
+            }
+<span class="nc" id="L88">        }</span>
+        else {
+<span class="nc" id="L90">            Set&lt;Review&gt; set = reviewDto1SetToReviewSet( appUserDto.reviews() );</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            if ( set != null ) {</span>
+<span class="nc" id="L92">                appUser.setReviews( set );</span>
+            }
+        }
+
+<span class="nc" id="L96">        linkReviews( appUser );</span>
+
+<span class="nc" id="L98">        return appUser;</span>
+    }
+
+    protected Review reviewDto1ToReview(AppUserDto.ReviewDto1 reviewDto1) {
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if ( reviewDto1 == null ) {</span>
+<span class="nc" id="L103">            return null;</span>
+        }
+
+<span class="nc" id="L106">        Review review = new Review();</span>
+
+<span class="nc" id="L108">        review.setPublicID( reviewDto1.publicID() );</span>
+<span class="nc" id="L109">        review.setDescription( reviewDto1.description() );</span>
+
+<span class="nc" id="L111">        return review;</span>
+    }
+
+    protected Set&lt;Review&gt; reviewDto1SetToReviewSet(Set&lt;AppUserDto.ReviewDto1&gt; set) {
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        if ( set == null ) {</span>
+<span class="nc" id="L116">            return null;</span>
+        }
+
+<span class="nc" id="L119">        Set&lt;Review&gt; set1 = new LinkedHashSet&lt;Review&gt;( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        for ( AppUserDto.ReviewDto1 reviewDto1 : set ) {</span>
+<span class="nc" id="L121">            set1.add( reviewDto1ToReview( reviewDto1 ) );</span>
+<span class="nc" id="L122">        }</span>
+
+<span class="nc" id="L124">        return set1;</span>
+    }
+
+    protected AppUserDto.ReviewDto1 reviewToReviewDto1(Review review) {
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if ( review == null ) {</span>
+<span class="nc" id="L129">            return null;</span>
+        }
+
+<span class="nc" id="L132">        UUID publicID = null;</span>
+<span class="nc" id="L133">        String description = null;</span>
+
+<span class="nc" id="L135">        publicID = review.getPublicID();</span>
+<span class="nc" id="L136">        description = review.getDescription();</span>
+
+<span class="nc" id="L138">        AppUserDto.ReviewDto1 reviewDto1 = new AppUserDto.ReviewDto1( publicID, description );</span>
+
+<span class="nc" id="L140">        return reviewDto1;</span>
+    }
+
+    protected Set&lt;AppUserDto.ReviewDto1&gt; reviewSetToReviewDto1Set(Set&lt;Review&gt; set) {
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        if ( set == null ) {</span>
+<span class="nc" id="L145">            return null;</span>
+        }
+
+<span class="nc" id="L148">        Set&lt;AppUserDto.ReviewDto1&gt; set1 = new LinkedHashSet&lt;AppUserDto.ReviewDto1&gt;( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">        for ( Review review : set ) {</span>
+<span class="nc" id="L150">            set1.add( reviewToReviewDto1( review ) );</span>
+<span class="nc" id="L151">        }</span>
+
+<span class="nc" id="L153">        return set1;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BoardGameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.controller</a> &gt; <span class="el_source">BoardGameController.java</span></div><h1>BoardGameController.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.controller;
+
+import com.codecool.bytebattlers.controller.dto.BoardGameDto;
+import com.codecool.bytebattlers.controller.exception.ResourceNotFoundException;
+import com.codecool.bytebattlers.mapper.BoardGameMapper;
+import com.codecool.bytebattlers.model.BoardGame;
+import com.codecool.bytebattlers.service.BoardGameService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping(&quot;/api/games&quot;)
+public class BoardGameController {
+
+    private static final String ERROR_MESSAGE = &quot;No found game&quot;;
+
+
+    private final BoardGameService boardGameService;
+
+    private final BoardGameMapper boardGameMapper;
+
+    @Autowired
+    public BoardGameController(BoardGameService boardGameService,
+<span class="fc" id="L29">                               BoardGameMapper boardGameMapper) {</span>
+<span class="fc" id="L30">        this.boardGameService = boardGameService;</span>
+<span class="fc" id="L31">        this.boardGameMapper = boardGameMapper;</span>
+<span class="fc" id="L32">    }</span>
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; getAllBoardGame() {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (boardGameService.findAll().isEmpty()) {</span>
+<span class="nc" id="L37">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+        } else {
+<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(boardGameService.findAll(), HttpStatus.OK);</span>
+        }
+    }
+
+    @PostMapping(&quot;/myfavorites&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; getFavoriteBoardGamesByUser(@RequestBody List&lt;UUID&gt; uuids) {
+<span class="nc" id="L45">       List&lt;BoardGame&gt; favBoardGames = uuids.stream().map(boardGameService::findByPublicID).toList();</span>
+<span class="nc" id="L46">       List&lt;BoardGameDto&gt; bgDtos = favBoardGames.stream().map(boardGameMapper::toDto).toList();</span>
+<span class="nc" id="L47">        return new ResponseEntity&lt;&gt;(bgDtos, HttpStatus.OK);</span>
+    }
+
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;BoardGameDto&gt; getBoardGameById(@PathVariable UUID id) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (boardGameService.findByPublicID(id) == null) {</span>
+<span class="nc" id="L54">            throw new ResourceNotFoundException(&quot;Not found Tutorial with id = &quot; + id);</span>
+        } else {
+<span class="nc" id="L56">            return new ResponseEntity&lt;&gt;(boardGameService.findByPublicIdToDTO(id), HttpStatus.OK);</span>
+        }
+    }
+
+    @PostMapping(&quot;/create&quot;)
+    public ResponseEntity&lt;?&gt; addNewBoardGame(@RequestBody BoardGameDto board) {
+        try {
+<span class="nc" id="L63">            BoardGameDto savedBoardGame = boardGameService.save(board);</span>
+<span class="nc" id="L64">            return new ResponseEntity&lt;&gt;(savedBoardGame, HttpStatus.CREATED);</span>
+<span class="nc" id="L65">        } catch (RuntimeException e) {</span>
+<span class="nc" id="L66">            return new ResponseEntity&lt;&gt;(null, HttpStatus.CONFLICT);</span>
+        }    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;BoardGameDto&gt; deleteBoardGameById(@PathVariable UUID id) {
+<span class="nc" id="L71">        boardGameService.deleteById(id);</span>
+<span class="nc" id="L72">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+    }
+
+    @GetMapping(&quot;/search&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByName(@RequestParam String boardGameName) {
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        if (boardGameService.findBoardGamesDtoByGameName(boardGameName).isEmpty()) {</span>
+<span class="nc" id="L78">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L80">            return new ResponseEntity&lt;&gt;(boardGameService.findBoardGamesDtoByGameName(boardGameName), HttpStatus.OK);</span>
+        }
+    }
+    @GetMapping(&quot;/publisher&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByPublisher(@RequestParam UUID publicID) {
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (boardGameService.findBoardGamesByPublisherPublicID(publicID).isEmpty()) {</span>
+<span class="nc" id="L86">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L88">            return new ResponseEntity&lt;&gt;(boardGameService.findBoardGamesByPublisherPublicID(publicID), HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/category&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByCategory(@RequestParam UUID publicID) {
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if (boardGameService.findBoardGamesByCategory(publicID).isEmpty()) {</span>
+<span class="nc" id="L95">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L97">            return new ResponseEntity&lt;&gt;(boardGameService.findBoardGamesByCategory(publicID), HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/sort&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; sortBy(@RequestParam String sort) {
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if (boardGameService.sortByName(sort).isEmpty()) {</span>
+<span class="nc" id="L104">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L106">            return new ResponseEntity&lt;&gt;(boardGameService.sortByName(sort), HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/description&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByDescription(@RequestParam String desc) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (boardGameService.findBoardGamesByDescription(desc).isEmpty()) {</span>
+<span class="nc" id="L113">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L115">            return new ResponseEntity&lt;&gt;(boardGameService.findBoardGamesByDescription(desc), HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/maxplayer&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findAllBoardGamesLesserThanOrEqualsByMaxPlayer(@RequestParam int max) {
+<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (boardGameService.findByLessThanOrEqualsMaxPlayer(max).isEmpty()) {</span>
+<span class="nc" id="L122">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L124">            return new ResponseEntity&lt;&gt;(boardGameService.findByLessThanOrEqualsMaxPlayer(max), HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/minplayer&quot;)
+    public ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findAllBoardGamesGreaterThanOrEqualsByMinPlayer(@RequestParam int min) {
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (boardGameService.findByMoreThanOrEqualsMinPlayer(min).isEmpty()) {</span>
+<span class="nc" id="L131">            throw new ResourceNotFoundException(ERROR_MESSAGE);</span>
+        } else {
+<span class="nc" id="L133">            return new ResponseEntity&lt;&gt;(boardGameService.findByMoreThanOrEqualsMinPlayer(min), HttpStatus.OK);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

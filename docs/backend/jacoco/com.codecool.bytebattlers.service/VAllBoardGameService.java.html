@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VAllBoardGameService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.service</a> &gt; <span class="el_source">VAllBoardGameService.java</span></div><h1>VAllBoardGameService.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.service;
+
+import com.codecool.bytebattlers.controller.dto.VAllBoardGameDto;
+import com.codecool.bytebattlers.mapper.VAllBoardGameMapper;
+import com.codecool.bytebattlers.model.VAllBoardGame;
+import com.codecool.bytebattlers.repository.VAllBoardGameRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+
+@Service
+public class VAllBoardGameService {
+
+    private final VAllBoardGameRepository vAllBoardGameRepository;
+    private final VAllBoardGameMapper vAllBoardGameMapper;
+
+    @Autowired
+<span class="fc" id="L20">    public VAllBoardGameService(VAllBoardGameRepository vAllBoardGameRepository, VAllBoardGameMapper vAllBoardGameMapper) {</span>
+<span class="fc" id="L21">        this.vAllBoardGameRepository = vAllBoardGameRepository;</span>
+<span class="fc" id="L22">        this.vAllBoardGameMapper = vAllBoardGameMapper;</span>
+<span class="fc" id="L23">    }</span>
+
+    public List&lt;VAllBoardGameDto&gt; findAll() {
+<span class="nc" id="L26">        return vAllBoardGameRepository.findAll().stream().map(vAllBoardGameMapper::toDto).toList();</span>
+    }
+
+    public List&lt;VAllBoardGame&gt; findVAllBoardGamesByGameName(String boardGameName) {
+<span class="nc" id="L30">        return vAllBoardGameRepository.findBoardGamesByGameNameContainingIgnoreCase(boardGameName);</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findVAllBoardGamesDtoByGameName(String boardGameName) {
+<span class="nc" id="L34">        List&lt;VAllBoardGame&gt; searchedBoardgames = findVAllBoardGamesByGameName(boardGameName);</span>
+<span class="nc" id="L35">        return searchedBoardgames.stream()</span>
+<span class="nc" id="L36">                .map(vAllBoardGameMapper::toDto)</span>
+<span class="nc" id="L37">                .toList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findAllBoardGamesByPublisher(String publisherName) {
+<span class="nc" id="L41">        return vAllBoardGameRepository.findVAllBoardGamesByPublisherName(publisherName)</span>
+<span class="nc" id="L42">                .stream().map(vAllBoardGameMapper::toDto)</span>
+<span class="nc" id="L43">                .toList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findVAllBoardGamesByCategory(String categoryName) {
+<span class="nc" id="L47">        return vAllBoardGameRepository.findVAllBoardGamesByCategoriesContaining(categoryName)</span>
+<span class="nc" id="L48">                .stream().map(vAllBoardGameMapper::toDto).toList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findVAllBoardGamesByDescription(String description) {
+<span class="nc" id="L52">        return vAllBoardGameRepository.findVAllBoardGamesByDescriptionContainingIgnoreCase(description)</span>
+<span class="nc" id="L53">                .stream().map(vAllBoardGameMapper::toDto).toList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; sortByName(String order) {
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (order.equals(&quot;asc&quot;)) {</span>
+<span class="nc" id="L58">            return vAllBoardGameRepository.findAllByOrderByGameNameAsc()</span>
+<span class="nc" id="L59">                    .stream().map(vAllBoardGameMapper::toDto).toList();</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        } else if (order.equals(&quot;desc&quot;)) {</span>
+<span class="nc" id="L61">            return vAllBoardGameRepository.findAllByOrderByGameNameDesc()</span>
+<span class="nc" id="L62">                    .stream().map(vAllBoardGameMapper::toDto)</span>
+<span class="nc" id="L63">                    .toList();</span>
+        }
+<span class="nc" id="L65">        return Collections.emptyList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findByLessThanOrEqualsMaxPlayer(int maxPlayer){
+<span class="nc" id="L69">        return vAllBoardGameRepository.findAllByMaxPlayerLessThanEqual(maxPlayer)</span>
+<span class="nc" id="L70">                .stream().map(vAllBoardGameMapper::toDto)</span>
+<span class="nc" id="L71">                .toList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findByMoreThanOrEqualsMinPlayer(int minPlayer) {
+<span class="nc" id="L75">        return vAllBoardGameRepository.findAllByMinPlayerGreaterThanEqual(minPlayer)</span>
+<span class="nc" id="L76">                .stream().map(vAllBoardGameMapper::toDto)</span>
+<span class="nc" id="L77">                .toList();</span>
+    }
+
+    public List&lt;VAllBoardGameDto&gt; findByMoreThanOrEqualRating(double rating) {
+<span class="nc" id="L81">        return vAllBoardGameRepository.findAllByAverageRatingGreaterThanEqual(rating)</span>
+<span class="nc" id="L82">                .stream().map(vAllBoardGameMapper::toDto)</span>
+<span class="nc" id="L83">                .toList();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

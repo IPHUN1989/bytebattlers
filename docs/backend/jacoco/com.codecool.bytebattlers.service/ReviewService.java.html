@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReviewService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.service</a> &gt; <span class="el_source">ReviewService.java</span></div><h1>ReviewService.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.service;
+
+import com.codecool.bytebattlers.controller.dto.ReviewDto;
+import com.codecool.bytebattlers.mapper.ReviewMapper;
+import com.codecool.bytebattlers.model.AppUser;
+import com.codecool.bytebattlers.model.BoardGame;
+import com.codecool.bytebattlers.model.Review;
+import com.codecool.bytebattlers.repository.ReviewRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+
+@Service
+public class ReviewService {
+    private final ReviewMapper reviewMapper;
+    private final ReviewRepository reviewRepository;
+    private final UserService userService;
+    private final BoardGameService boardGameService;
+
+    @Autowired
+<span class="fc" id="L24">    public ReviewService(ReviewMapper reviewMapper, ReviewRepository reviewRepository, UserService userService, BoardGameService boardGameService) {</span>
+<span class="fc" id="L25">        this.reviewMapper = reviewMapper;</span>
+<span class="fc" id="L26">        this.reviewRepository = reviewRepository;</span>
+<span class="fc" id="L27">        this.userService = userService;</span>
+<span class="fc" id="L28">        this.boardGameService = boardGameService;</span>
+<span class="fc" id="L29">    }</span>
+
+    public List&lt;ReviewDto&gt; findAll() {
+<span class="nc" id="L32">        return reviewRepository.findAll().stream().map(reviewMapper::toDto).toList();</span>
+    }
+
+    public List&lt;ReviewDto&gt; findAllReviewsByBoardGame(UUID id){
+<span class="nc" id="L36">        BoardGame foundBoardgame = boardGameService.findByPublicID(id);</span>
+<span class="nc" id="L37">        Set&lt;Review&gt; foundBoardGameReviews = foundBoardgame.getReviews();</span>
+<span class="nc" id="L38">         return foundBoardGameReviews.stream().map(reviewMapper::toDto).toList();</span>
+    }
+
+    public ReviewDto save(ReviewDto reviewDto) {
+<span class="nc" id="L42">        BoardGame foundBoardgame = boardGameService.findByPublicID(reviewDto.boardGamePublicID());</span>
+<span class="nc" id="L43">        Set&lt;Review&gt; foundBoardGameReviews = foundBoardgame.getReviews();</span>
+<span class="nc" id="L44">        AppUser foundUser = userService.findByPublicID(reviewDto.appUserPublicID());</span>
+<span class="nc" id="L45">        Review review = reviewMapper.toEntity(reviewDto);</span>
+<span class="nc" id="L46">        foundBoardGameReviews.add(review);</span>
+<span class="nc" id="L47">        foundBoardgame.setReviews(foundBoardGameReviews);</span>
+<span class="nc" id="L48">        review.setAppUser(foundUser);</span>
+<span class="nc" id="L49">        review.setBoardGame(foundBoardgame);</span>
+<span class="nc" id="L50">        reviewRepository.save(review);</span>
+<span class="nc" id="L51">        return reviewMapper.toDto(review);</span>
+    }
+
+    public void deleteById(UUID publicID) {
+<span class="nc" id="L55">        reviewRepository.deleteByPublicID(publicID);</span>
+<span class="nc" id="L56">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

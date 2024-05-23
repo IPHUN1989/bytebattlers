@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReviewMapperImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.mapper</a> &gt; <span class="el_source">ReviewMapperImpl.java</span></div><h1>ReviewMapperImpl.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.mapper;
+
+import com.codecool.bytebattlers.controller.dto.ReviewDto;
+import com.codecool.bytebattlers.model.AppUser;
+import com.codecool.bytebattlers.model.BoardGame;
+import com.codecool.bytebattlers.model.Review;
+import java.util.UUID;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = &quot;org.mapstruct.ap.MappingProcessor&quot;,
+    date = &quot;2024-05-23T13:32:25+0000&quot;,
+    comments = &quot;version: 1.5.5.Final, compiler: javac, environment: Java 17.0.11 (Azul Systems, Inc.)&quot;
+)
+@Component
+<span class="fc" id="L17">public class ReviewMapperImpl implements ReviewMapper {</span>
+
+    @Override
+    public Review partialUpdate(ReviewDto reviewDto, Review review) {
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L22">            return review;</span>
+        }
+
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if ( reviewDto.publicID() != null ) {</span>
+<span class="nc" id="L26">            review.setPublicID( reviewDto.publicID() );</span>
+        }
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if ( reviewDto.description() != null ) {</span>
+<span class="nc" id="L29">            review.setDescription( reviewDto.description() );</span>
+        }
+
+<span class="nc" id="L32">        return review;</span>
+    }
+
+    @Override
+    public Review toEntity(ReviewDto reviewDto) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L38">            return null;</span>
+        }
+
+<span class="nc" id="L41">        Review review = new Review();</span>
+
+<span class="nc" id="L43">        review.setAppUser( reviewDtoToAppUser( reviewDto ) );</span>
+<span class="nc" id="L44">        review.setBoardGame( reviewDtoToBoardGame( reviewDto ) );</span>
+<span class="nc" id="L45">        review.setPublicID( reviewDto.publicID() );</span>
+<span class="nc" id="L46">        review.setDescription( reviewDto.description() );</span>
+
+<span class="nc" id="L48">        return review;</span>
+    }
+
+    @Override
+    public ReviewDto toDto(Review review) {
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if ( review == null ) {</span>
+<span class="nc" id="L54">            return null;</span>
+        }
+
+<span class="nc" id="L57">        UUID appUserPublicID = null;</span>
+<span class="nc" id="L58">        String appUserName = null;</span>
+<span class="nc" id="L59">        UUID boardGamePublicID = null;</span>
+<span class="nc" id="L60">        UUID publicID = null;</span>
+<span class="nc" id="L61">        String description = null;</span>
+
+<span class="nc" id="L63">        appUserPublicID = reviewAppUserPublicID( review );</span>
+<span class="nc" id="L64">        appUserName = reviewAppUserName( review );</span>
+<span class="nc" id="L65">        boardGamePublicID = reviewBoardGamePublicID( review );</span>
+<span class="nc" id="L66">        publicID = review.getPublicID();</span>
+<span class="nc" id="L67">        description = review.getDescription();</span>
+
+<span class="nc" id="L69">        ReviewDto reviewDto = new ReviewDto( publicID, description, boardGamePublicID, appUserPublicID, appUserName );</span>
+
+<span class="nc" id="L71">        return reviewDto;</span>
+    }
+
+    @Override
+    public Review partialUpdate(Review review, ReviewDto reviewDto) {
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L77">            return review;</span>
+        }
+
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        if ( review.getAppUser() == null ) {</span>
+<span class="nc" id="L81">            review.setAppUser( new AppUser() );</span>
+        }
+<span class="nc" id="L83">        reviewDtoToAppUser1( reviewDto, review.getAppUser() );</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if ( review.getBoardGame() == null ) {</span>
+<span class="nc" id="L85">            review.setBoardGame( new BoardGame() );</span>
+        }
+<span class="nc" id="L87">        reviewDtoToBoardGame1( reviewDto, review.getBoardGame() );</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if ( reviewDto.publicID() != null ) {</span>
+<span class="nc" id="L89">            review.setPublicID( reviewDto.publicID() );</span>
+        }
+<span class="nc bnc" id="L91" title="All 2 branches missed.">        if ( reviewDto.description() != null ) {</span>
+<span class="nc" id="L92">            review.setDescription( reviewDto.description() );</span>
+        }
+
+<span class="nc" id="L95">        return review;</span>
+    }
+
+    protected AppUser reviewDtoToAppUser(ReviewDto reviewDto) {
+<span class="nc bnc" id="L99" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L100">            return null;</span>
+        }
+
+<span class="nc" id="L103">        AppUser appUser = new AppUser();</span>
+
+<span class="nc" id="L105">        appUser.setPublicID( reviewDto.appUserPublicID() );</span>
+<span class="nc" id="L106">        appUser.setName( reviewDto.appUserName() );</span>
+
+<span class="nc" id="L108">        return appUser;</span>
+    }
+
+    protected BoardGame reviewDtoToBoardGame(ReviewDto reviewDto) {
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L113">            return null;</span>
+        }
+
+<span class="nc" id="L116">        BoardGame boardGame = new BoardGame();</span>
+
+<span class="nc" id="L118">        boardGame.setPublicID( reviewDto.boardGamePublicID() );</span>
+
+<span class="nc" id="L120">        return boardGame;</span>
+    }
+
+    private UUID reviewAppUserPublicID(Review review) {
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if ( review == null ) {</span>
+<span class="nc" id="L125">            return null;</span>
+        }
+<span class="nc" id="L127">        AppUser appUser = review.getAppUser();</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        if ( appUser == null ) {</span>
+<span class="nc" id="L129">            return null;</span>
+        }
+<span class="nc" id="L131">        UUID publicID = appUser.getPublicID();</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        if ( publicID == null ) {</span>
+<span class="nc" id="L133">            return null;</span>
+        }
+<span class="nc" id="L135">        return publicID;</span>
+    }
+
+    private String reviewAppUserName(Review review) {
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if ( review == null ) {</span>
+<span class="nc" id="L140">            return null;</span>
+        }
+<span class="nc" id="L142">        AppUser appUser = review.getAppUser();</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if ( appUser == null ) {</span>
+<span class="nc" id="L144">            return null;</span>
+        }
+<span class="nc" id="L146">        String name = appUser.getName();</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if ( name == null ) {</span>
+<span class="nc" id="L148">            return null;</span>
+        }
+<span class="nc" id="L150">        return name;</span>
+    }
+
+    private UUID reviewBoardGamePublicID(Review review) {
+<span class="nc bnc" id="L154" title="All 2 branches missed.">        if ( review == null ) {</span>
+<span class="nc" id="L155">            return null;</span>
+        }
+<span class="nc" id="L157">        BoardGame boardGame = review.getBoardGame();</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        if ( boardGame == null ) {</span>
+<span class="nc" id="L159">            return null;</span>
+        }
+<span class="nc" id="L161">        UUID publicID = boardGame.getPublicID();</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if ( publicID == null ) {</span>
+<span class="nc" id="L163">            return null;</span>
+        }
+<span class="nc" id="L165">        return publicID;</span>
+    }
+
+    protected void reviewDtoToAppUser1(ReviewDto reviewDto, AppUser mappingTarget) {
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L170">            return;</span>
+        }
+
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if ( reviewDto.appUserPublicID() != null ) {</span>
+<span class="nc" id="L174">            mappingTarget.setPublicID( reviewDto.appUserPublicID() );</span>
+        }
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        if ( reviewDto.appUserName() != null ) {</span>
+<span class="nc" id="L177">            mappingTarget.setName( reviewDto.appUserName() );</span>
+        }
+<span class="nc" id="L179">    }</span>
+
+    protected void reviewDtoToBoardGame1(ReviewDto reviewDto, BoardGame mappingTarget) {
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        if ( reviewDto == null ) {</span>
+<span class="nc" id="L183">            return;</span>
+        }
+
+<span class="nc bnc" id="L186" title="All 2 branches missed.">        if ( reviewDto.boardGamePublicID() != null ) {</span>
+<span class="nc" id="L187">            mappingTarget.setPublicID( reviewDto.boardGamePublicID() );</span>
+        }
+<span class="nc" id="L189">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

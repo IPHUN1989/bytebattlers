@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PublisherController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bytebattlers</a> &gt; <a href="index.source.html" class="el_package">com.codecool.bytebattlers.controller</a> &gt; <span class="el_source">PublisherController.java</span></div><h1>PublisherController.java</h1><pre class="source lang-java linenums">package com.codecool.bytebattlers.controller;
+
+import com.codecool.bytebattlers.controller.dto.PublisherDto;
+import com.codecool.bytebattlers.controller.exception.ResourceNotFoundException;
+import com.codecool.bytebattlers.service.PublisherService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping(&quot;/api/publishers&quot;)
+public class PublisherController {
+
+    private final PublisherService service;
+
+    @Autowired
+<span class="fc" id="L21">    public PublisherController(PublisherService service) {</span>
+<span class="fc" id="L22">        this.service = service;</span>
+<span class="fc" id="L23">    }</span>
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;PublisherDto&gt;&gt; getAllPublishers() {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if (service.findAll().isEmpty()) {</span>
+<span class="nc" id="L28">            return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+        } else {
+<span class="nc" id="L30">            return new ResponseEntity&lt;&gt;(service.findAll(), HttpStatus.OK);</span>
+        }
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;PublisherDto&gt; getPublisherById(@PathVariable UUID id) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if (service.findById(id) == null) {</span>
+<span class="nc" id="L37">            throw new ResourceNotFoundException(&quot;Not found Tutorial with id = &quot; + id);</span>
+        } else {
+<span class="nc" id="L39">            return new ResponseEntity&lt;&gt;(service.findById(id), HttpStatus.OK);</span>
+        }
+    }
+
+    @PatchMapping(&quot;/{id}&quot;)
+    public void updatePublisherById(@RequestBody PublisherDto body, @PathVariable UUID id) {
+<span class="nc" id="L45">        service.update(body, id);</span>
+<span class="nc" id="L46">    }</span>
+
+    @PostMapping
+    public ResponseEntity&lt;PublisherDto&gt; addNewPublisher(@RequestBody PublisherDto board) {
+<span class="nc" id="L50">        return new ResponseEntity&lt;&gt;(service.save(board), HttpStatus.CREATED);</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;PublisherDto&gt; deletePublisherById(@PathVariable UUID id) {
+<span class="nc" id="L55">        service.deleteById(id);</span>
+<span class="nc" id="L56">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>BoardGameController xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../apidocs/com/codecool/bytebattlers/controller/BoardGameController.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <strong class="jxr_keyword">package</strong> com.codecool.bytebattlers.controller;
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <strong class="jxr_keyword">import</strong> com.codecool.bytebattlers.controller.dto.BoardGameDto;
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <strong class="jxr_keyword">import</strong> com.codecool.bytebattlers.controller.exception.ResourceNotFoundException;
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <strong class="jxr_keyword">import</strong> com.codecool.bytebattlers.mapper.BoardGameMapper;
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <strong class="jxr_keyword">import</strong> com.codecool.bytebattlers.model.BoardGame;
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <strong class="jxr_keyword">import</strong> com.codecool.bytebattlers.service.BoardGameService;
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <strong class="jxr_keyword">import</strong> org.springframework.beans.factory.annotation.Autowired;
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <strong class="jxr_keyword">import</strong> org.springframework.http.HttpStatus;
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <strong class="jxr_keyword">import</strong> org.springframework.http.ResponseEntity;
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <strong class="jxr_keyword">import</strong> org.springframework.web.bind.annotation.*;
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <strong class="jxr_keyword">import</strong> java.util.UUID;
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  @RestController
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  @RequestMapping(<span class="jxr_string">"/api/games"</span>)
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a name="BoardGameController" href="../../../../com/codecool/bytebattlers/controller/BoardGameController.html#BoardGameController">BoardGameController</a> {
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String ERROR_MESSAGE = <span class="jxr_string">"No found game"</span>;
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="BoardGameService" href="../../../../com/codecool/bytebattlers/service/BoardGameService.html#BoardGameService">BoardGameService</a> boardGameService;
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> <a name="BoardGameMapper" href="../../../../com/codecool/bytebattlers/mapper/BoardGameMapper.html#BoardGameMapper">BoardGameMapper</a> boardGameMapper;
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>      @Autowired
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>      <strong class="jxr_keyword">public</strong> <a name="BoardGameController" href="../../../../com/codecool/bytebattlers/controller/BoardGameController.html#BoardGameController">BoardGameController</a>(<a name="BoardGameService" href="../../../../com/codecool/bytebattlers/service/BoardGameService.html#BoardGameService">BoardGameService</a> boardGameService,
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>                                 <a name="BoardGameMapper" href="../../../../com/codecool/bytebattlers/mapper/BoardGameMapper.html#BoardGameMapper">BoardGameMapper</a> boardGameMapper) {
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>          <strong class="jxr_keyword">this</strong>.boardGameService = boardGameService;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>          <strong class="jxr_keyword">this</strong>.boardGameMapper = boardGameMapper;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>      }
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>      @GetMapping
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; getAllBoardGame() {
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>          <strong class="jxr_keyword">if</strong> (boardGameService.findAll().isEmpty()) {
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findAll(), HttpStatus.OK);
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>          }
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>      }
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      @PostMapping(<span class="jxr_string">"/myfavorites"</span>)
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; getFavoriteBoardGamesByUser(@RequestBody List&lt;UUID&gt; uuids) {
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>         List&lt;BoardGame&gt; favBoardGames = uuids.stream().map(boardGameService::findByPublicID).toList();
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>         List&lt;BoardGameDto&gt; bgDtos = favBoardGames.stream().map(boardGameMapper::toDto).toList();
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(bgDtos, HttpStatus.OK);
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>      }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>      @GetMapping(<span class="jxr_string">"/{id}"</span>)
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;BoardGameDto&gt; getBoardGameById(@PathVariable UUID id) {
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>          <strong class="jxr_keyword">if</strong> (boardGameService.findByPublicID(id) == <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(<span class="jxr_string">"Not found Tutorial with id = "</span> + id);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findByPublicIdToDTO(id), HttpStatus.OK);
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>          }
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>      }
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      @PostMapping(<span class="jxr_string">"/create"</span>)
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;?&gt; addNewBoardGame(@RequestBody <a name="BoardGameDto" href="../../../../com/codecool/bytebattlers/controller/dto/BoardGameDto.html#BoardGameDto">BoardGameDto</a> board) {
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>              <a name="BoardGameDto" href="../../../../com/codecool/bytebattlers/controller/dto/BoardGameDto.html#BoardGameDto">BoardGameDto</a> savedBoardGame = boardGameService.save(board);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(savedBoardGame, HttpStatus.CREATED);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          } <strong class="jxr_keyword">catch</strong> (RuntimeException e) {
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(<strong class="jxr_keyword">null</strong>, HttpStatus.CONFLICT);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          }    }
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>      @DeleteMapping(<span class="jxr_string">"/{id}"</span>)
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;BoardGameDto&gt; deleteBoardGameById(@PathVariable UUID id) {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          boardGameService.deleteById(id);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      }
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      @GetMapping(<span class="jxr_string">"/search"</span>)
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByName(@RequestParam String boardGameName) {
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>          <strong class="jxr_keyword">if</strong> (boardGameService.findBoardGamesDtoByGameName(boardGameName).isEmpty()) {
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findBoardGamesDtoByGameName(boardGameName), HttpStatus.OK);
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>          }
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>      }
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      @GetMapping(<span class="jxr_string">"/publisher"</span>)
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByPublisher(@RequestParam UUID publicID) {
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>          <strong class="jxr_keyword">if</strong> (boardGameService.findBoardGamesByPublisherPublicID(publicID).isEmpty()) {
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findBoardGamesByPublisherPublicID(publicID), HttpStatus.OK);
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>          }
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>      }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>      @GetMapping(<span class="jxr_string">"/category"</span>)
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>      <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByCategory(@RequestParam UUID publicID) {
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>          <strong class="jxr_keyword">if</strong> (boardGameService.findBoardGamesByCategory(publicID).isEmpty()) {
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>          } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>              <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findBoardGamesByCategory(publicID), HttpStatus.OK);
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          }
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>      }
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> 
+<a class="jxr_linenumber" name="L101" href="#L101">101</a>     @GetMapping(<span class="jxr_string">"/sort"</span>)
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>     <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; sortBy(@RequestParam String sort) {
+<a class="jxr_linenumber" name="L103" href="#L103">103</a>         <strong class="jxr_keyword">if</strong> (boardGameService.sortByName(sort).isEmpty()) {
+<a class="jxr_linenumber" name="L104" href="#L104">104</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.sortByName(sort), HttpStatus.OK);
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         }
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     }
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> 
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>     @GetMapping(<span class="jxr_string">"/description"</span>)
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>     <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findBoardGamesByDescription(@RequestParam String desc) {
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         <strong class="jxr_keyword">if</strong> (boardGameService.findBoardGamesByDescription(desc).isEmpty()) {
+<a class="jxr_linenumber" name="L113" href="#L113">113</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L114" href="#L114">114</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L115" href="#L115">115</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findBoardGamesByDescription(desc), HttpStatus.OK);
+<a class="jxr_linenumber" name="L116" href="#L116">116</a>         }
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>     }
+<a class="jxr_linenumber" name="L118" href="#L118">118</a> 
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>     @GetMapping(<span class="jxr_string">"/maxplayer"</span>)
+<a class="jxr_linenumber" name="L120" href="#L120">120</a>     <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findAllBoardGamesLesserThanOrEqualsByMaxPlayer(@RequestParam <strong class="jxr_keyword">int</strong> max) {
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>         <strong class="jxr_keyword">if</strong> (boardGameService.findByLessThanOrEqualsMaxPlayer(max).isEmpty()) {
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L123" href="#L123">123</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findByLessThanOrEqualsMaxPlayer(max), HttpStatus.OK);
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>         }
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>     }
+<a class="jxr_linenumber" name="L127" href="#L127">127</a> 
+<a class="jxr_linenumber" name="L128" href="#L128">128</a>     @GetMapping(<span class="jxr_string">"/minplayer"</span>)
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>     <strong class="jxr_keyword">public</strong> ResponseEntity&lt;List&lt;BoardGameDto&gt;&gt; findAllBoardGamesGreaterThanOrEqualsByMinPlayer(@RequestParam <strong class="jxr_keyword">int</strong> min) {
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>         <strong class="jxr_keyword">if</strong> (boardGameService.findByMoreThanOrEqualsMinPlayer(min).isEmpty()) {
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> <a name="ResourceNotFoundException" href="../../../../com/codecool/bytebattlers/controller/exception/ResourceNotFoundException.html#ResourceNotFoundException">ResourceNotFoundException</a>(ERROR_MESSAGE);
+<a class="jxr_linenumber" name="L132" href="#L132">132</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> ResponseEntity&lt;&gt;(boardGameService.findByMoreThanOrEqualsMinPlayer(min), HttpStatus.OK);
+<a class="jxr_linenumber" name="L134" href="#L134">134</a>         }
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>     }
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2024. All rights reserved.</div>
+</body>
+</html>
