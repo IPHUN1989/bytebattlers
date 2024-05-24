@@ -1,15 +1,15 @@
-![Project Logo](https://raw.githubusercontent.com/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn/development/frontend/src/assets/wallpaper/Byte_Battlers.png)
+![Project Logo](https://raw.githubusercontent.com/IPHUN1989/bytebattlers/development/frontend/src/assets/wallpaper/Byte_Battlers.png)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
-![GitHub language count](https://img.shields.io/github/languages/count/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
-![Static Badge](https://img.shields.io/badge/total%20number%20of%20tracked%20files-90-blue)
-![GitHub contributors](https://img.shields.io/github/contributors/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn?label=total%20commits)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn?label=monthly%20commits)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn/development)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
-![GitHub issues](https://img.shields.io/github/issues-raw/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/CodecoolGlobal/el-proyecte-grande-sprint-1-java-szplkflrn)
+![GitHub repo size](https://img.shields.io/github/repo-size/IPHUN1989/bytebattlers)
+![GitHub language count](https://img.shields.io/github/languages/count/IPHUN1989/bytebattlers)
+![Static Badge](https://img.shields.io/badge/total%20number%20of%20tracked%20files-113-blue)
+![GitHub contributors](https://img.shields.io/github/contributors/IPHUN1989/bytebattlers)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/IPHUN1989/bytebattlers?label=total%20commits)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/IPHUN1989/bytebattlers?label=monthly%20commits)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/IPHUN1989/bytebattlers/development)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/IPHUN1989/bytebattlers)
+![GitHub issues](https://img.shields.io/github/issues-raw/IPHUN1989/bytebattlers)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/IPHUN1989/bytebattlers)
 
 
 # Information about the migration of the project
