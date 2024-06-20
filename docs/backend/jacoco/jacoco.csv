@@ -38,8 +38,8 @@ Bytebattlers,com.codecool.bytebattlers.model,AuthenticationResponse.Authenticati
 Bytebattlers,com.codecool.bytebattlers.model,VAllBoardGame,80,0,0,0,13,0,23,0,23,0
 Bytebattlers,com.codecool.bytebattlers.model,AppUser,63,18,0,0,10,4,18,1,18,1
 Bytebattlers,com.codecool.bytebattlers.model,Category,100,11,16,0,13,4,20,1,12,1
-Bytebattlers,com.codecool.bytebattlers.model,Review,100,6,16,0,13,3,20,1,12,1
 Bytebattlers,com.codecool.bytebattlers.model,AuthenticationResponse,85,0,14,0,5,0,16,0,9,0
+Bytebattlers,com.codecool.bytebattlers.model,Review,100,6,16,0,13,3,20,1,12,1
 Bytebattlers,com.codecool.bytebattlers.model,Rating,100,6,16,0,13,3,20,1,12,1
 Bytebattlers,com.codecool.bytebattlers.config,SecurityConfiguration,0,83,0,0,0,13,0,5,0,5
 Bytebattlers,com.codecool.bytebattlers.config,JwtService,118,7,4,0,26,2,11,2,9,2
