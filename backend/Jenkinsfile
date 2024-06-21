@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:latest'
+            image 'maven@sha256:7106ce47b5c226ee21bac386cb706ff9f3db7ac2f15e251e3aa491fcbfc30028'
             args '-u root --privileged --net="jenkins" -v $HOME/.m2:/root/.m2'
         }
     }
@@ -9,7 +9,6 @@ pipeline {
     REPOSITORY = 'iphun/'
     DOCKERHUB_CREDENTIALS=credentials('dockerHub')
     IMAGE_NAME = 'bytebattlers-backend'
-    SUBFOLDER = 'backend'
   }
     stages {
         stage('validate') {
