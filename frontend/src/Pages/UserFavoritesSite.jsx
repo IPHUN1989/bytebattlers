@@ -111,7 +111,7 @@ function UserFavoritesSite() {
             {user.favoriteBoardGamePublicIDS.length !== 0 ?
               <Typography textAlign={"center"} style={{ fontWeight: "bold" }}>Your Favorite Boardgames:</Typography>
               : <div style={{ textAlign: "center" }}>
-                <Typography textAlign={"center"} style={{ fontWeight: "bold" }}>You don't have any favorite Boardgames!</Typography>
+                <Typography textAlign={"center"} style={{ fontWeight: "bold" }}>You do not have any favorite Boardgames!</Typography>
                 <Button href="/games">Jump to the Games!</Button>
               </div>
             }
