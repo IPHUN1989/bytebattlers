@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useEffect, useState, useCallback } from 'react';
 import {
   Link, Accordion, AccordionSummary, AccordionDetails, Card, CardContent, Typography, Button
 } from '@mui/material';
@@ -7,7 +6,6 @@ import {
 function UserFavoritesSite() {
   const [user, setUser] = useState(null);
   const [bgs, setBgs] = useState(null);
-
 
   const removeBoardGameFromFavorites = async (userId, boardGameId) => {
     try {
@@ -19,9 +17,7 @@ function UserFavoritesSite() {
         }
         : { "Content-Type": "application/json" };
 
-      const data = {
-        boardGameId
-      }
+      const data = { boardGameId };
 
       const response = await fetch(`/api/users/favorites/${userId}`, {
         method: "DELETE",
@@ -30,8 +26,6 @@ function UserFavoritesSite() {
       });
 
       if (response.ok) {
-        // Board game was successfully removed from favorites
-        // You can update the UI or display a message here
         console.log('Board game removed from favorites');
         location.reload();
       } else {
@@ -41,9 +35,6 @@ function UserFavoritesSite() {
       console.error("Error removing board game from favorites: ", error);
     }
   };
-
-
-
 
   const userFetch = async () => {
     try {
@@ -75,13 +66,7 @@ function UserFavoritesSite() {
     userFetch();
   }, []);
 
-  useEffect(() => {
-    if (user) {
-      favBoardGamesFetch();
-    }
-  }, [user]);
-
-  const favBoardGamesFetch = async () => {
+  const favBoardGamesFetch = useCallback(async () => {
     const uuids = user.favoriteBoardGamePublicIDS;
 
     try {
@@ -93,9 +78,7 @@ function UserFavoritesSite() {
         }
         : { "Content-Type": "application/json" };
 
-      const data = {
-        uuids
-      };
+      const data = { uuids };
 
       const response = await fetch(`/api/games/myfavorites`, {
         method: "POST",
@@ -112,7 +95,14 @@ function UserFavoritesSite() {
     } catch (error) {
       console.error("Error fetching user data: ", error);
     }
-  }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      favBoardGamesFetch();
+    }
+  }, [user, favBoardGamesFetch]);
+
   return (
     <div>
       {user !== null && bgs !== null ? (
@@ -128,9 +118,7 @@ function UserFavoritesSite() {
             <br />
 
             {bgs.map((bg) => (
-
               <Accordion key={bg.publicID}>
-
                 <AccordionSummary>
                   <Link border={"none"} href={`/games/${bg.publicID}`}>
                     {bg.gameName}
@@ -139,11 +127,9 @@ function UserFavoritesSite() {
                   <Button onClick={() => removeBoardGameFromFavorites(localStorage.getItem("userID"), bg.publicID)}>Delete from favorites</Button>
                 </AccordionSummary>
                 <AccordionDetails>
-
                   {user.reviews.map((userRev) => {
                     return bg.reviews.map((bgRev) => {
                       if (userRev.publicID === bgRev.publicID) {
-
                         return (
                           <div key={bgRev.publicID}>
                             <Typography variant="body2">Review:</Typography>
@@ -152,7 +138,7 @@ function UserFavoritesSite() {
                           </div>
                         );
                       }
-                      return; // Return null if there's no matching review
+                      return null; // Return null if there's no matching review
                     });
                   })}
                 </AccordionDetails>
