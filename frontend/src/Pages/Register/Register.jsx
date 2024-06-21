@@ -1,4 +1,6 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+
 
 const Register = ({ onSave, onCancel }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -96,6 +98,11 @@ const Register = ({ onSave, onCancel }) => {
       </div>
     </section>
   );
+};
+
+Register.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default Register;
