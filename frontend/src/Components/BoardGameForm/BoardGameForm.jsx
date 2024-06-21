@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 
 const BoardGameForm = ({ onSave, onCancel }) => {
@@ -210,6 +211,11 @@ const BoardGameForm = ({ onSave, onCancel }) => {
       </form>
     </div>
   );
+};
+
+BoardGameForm.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
 };
 
 export default BoardGameForm;

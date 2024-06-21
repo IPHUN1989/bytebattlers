@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback} from "react";
 import { useParams } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
@@ -195,7 +194,7 @@ export default function GameDetails() {
     }
   };
 
-  const fetchRatingForGame = async () => {
+  const fetchRatingForGame = useCallback(async () => {
     try {
       const userToken = localStorage.getItem("usertoken");
       const userID = localStorage.getItem("userID");
@@ -206,7 +205,7 @@ export default function GameDetails() {
             "Content-Type": "application/json",
           }
         : { "Content-Type": "application/json" };
-
+  
       const response = await fetch(
         `/api/ratings/check-existence?appUserPublicID=${userID}&boardGamePublicID=${boardGamePublicID}`,
         {
@@ -214,7 +213,7 @@ export default function GameDetails() {
           headers: headers,
         }
       );
-      
+  
       if (response.ok) {
         const data = await response.json();
         setCheckedRating(data);
@@ -226,7 +225,7 @@ export default function GameDetails() {
     } catch (error) {
       console.error("Error fetching rating: ", error);
     }
-  };
+  }, [boardGame]);
 
   const fetchBoardGame = async (id) => {
     try {
@@ -297,9 +296,9 @@ export default function GameDetails() {
     if (boardGame) {
       fetchRatingForGame();
     }
-  }, [boardGame]);
+  }, [boardGame, fetchRatingForGame]);
 
-  const favorizedIDs = user ? user.favoriteBoardGamePublicIDS : [];
+  const favoredIDs = user ? user.favoriteBoardGamePublicIDS : [];
 
   return (
     <div>
@@ -332,7 +331,7 @@ export default function GameDetails() {
                 </Typography>
                 <br></br>
                 {localStorage.getItem("username") ? (
-                  !favorizedIDs.includes(boardGame.publicID) ? (
+                  !favoredIDs.includes(boardGame.publicID) ? (
                     <div>
                       <Button onClick={handleAddToFavorites}>
                         Add to favorites
