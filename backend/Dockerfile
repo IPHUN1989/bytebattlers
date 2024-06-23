@@ -1,5 +1,5 @@
 # Build
-FROM maven@sha256:7106ce47b5c226ee21bac386cb706ff9f3db7ac2f15e251e3aa491fcbfc30028 AS build
+FROM maven:3.9.7-eclipse-temurin-17-alpine@sha256:f497ab78d9245d5854e5603c812ea9abece1d1dcd466c478fd6016b433567196 AS build
 WORKDIR /app
 COPY pom.xml ./.
 RUN mvn dependency:go-offline dependency:resolve-plugins 
