@@ -1,0 +1,65 @@
+pipeline {
+    agent {
+        docker {
+            image 'node:20.9.0-slim@sha256:fdf5490bb2e1aba61297901bbe55d39202a6d9f18913bfb4a37466f8b728a44e'
+            args '-u root --privileged --net="jenkins"'
+        }
+    }
+    environment {
+    REPOSITORY = 'iphun/'
+    DOCKERHUB_CREDENTIALS=credentials('dockerHub')
+    IMAGE_NAME = 'bytebattlers-frontend'
+  }
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                catchError {
+                        sh 'npm --prefix ./frontend/ install'
+                }
+            }
+        }
+        stage('ES Linter check') {
+            steps {
+                catchError {
+                        sh 'npm --prefix ./frontend/ run lint'
+                }
+            }
+        }
+        stage('Building static files') {
+            steps {
+                catchError {
+                        sh 'npm --prefix ./frontend/ run build'
+                }
+            }
+        }
+
+
+        stage('Building image') {
+            steps{
+                script {
+                        sh 'docker build -f ./frontend/Dockerfile -t ${REPOSITORY}${IMAGE_NAME}:latest -t ${REPOSITORY}${IMAGE_NAME}:${BUILD_NUMBER} ./frontend' }
+            }
+        }
+
+        stage('Docker Login and Push') {
+                steps {
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'docker push ${REPOSITORY}${IMAGE_NAME}:${BUILD_NUMBER}'
+                    sh 'docker push ${REPOSITORY}${IMAGE_NAME}:latest'
+                }
+        }
+
+        stage('Extended notification') {
+            steps {
+                emailext (
+                    subject: '$DEFAULT_SUBJECT',
+                    body: '$DEFAULT_CONTENT',
+                    to: '$DEFAULT_RECIPIENTS',
+                    recipientProviders: [ requestor() ]
+                )
+            }
+        }
+    }
+    
+}
