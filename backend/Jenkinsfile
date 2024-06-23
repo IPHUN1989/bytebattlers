@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven@sha256:7106ce47b5c226ee21bac386cb706ff9f3db7ac2f15e251e3aa491fcbfc30028'
+            image 'maven:3.9.7-amazoncorretto-17-debian@sha256:ec1b0fcd25192efc5686fd460b4fe95439533eafafe841a81150472203118421'
             args '-u root --privileged --net="jenkins" -v $HOME/.m2:/root/.m2'
         }
     }
